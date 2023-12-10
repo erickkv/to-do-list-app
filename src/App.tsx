@@ -22,21 +22,24 @@ import '@ionic/react/css/display.css';
 /* Theme variables */
 import './theme/variables.css';
 
+import { firebaseConfig } from './firebaseConfig';
+import { initializeApp } from 'firebase/app';
+import CreateTaskPage from './pages/CreateTask';
+import HomePage from './pages/Home';
+
+// Inicializar Firebase
+const firebaseApp = initializeApp(firebaseConfig);
+
 setupIonicReact();
 
 const App: React.FC = () => (
-  <IonApp>
-    <IonReactRouter>
-      <IonRouterOutlet>
-        <Route exact path="/home">
-          <Home />
-        </Route>
-        <Route exact path="/">
-          <Redirect to="/home" />
-        </Route>
-      </IonRouterOutlet>
-    </IonReactRouter>
-  </IonApp>
+  <IonReactRouter>
+    <IonRouterOutlet placeholder="placeholder">
+      <Route path="/home" component={HomePage} exact={true} />
+      <Route path="/create-task" component={CreateTaskPage} exact={true} />
+      <Route exact path="/"><Redirect to="/home" /></Route>
+    </IonRouterOutlet>
+  </IonReactRouter>
 );
 
 export default App;
